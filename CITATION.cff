@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this micropublication package, please cite it using these metadata."
+title: "Teacher-guided corrective residuals support reflex-like recovery in simulated locomotion"
+authors:
+  - family-names: "de Vicente"
+    given-names: "Andrés"
+    orcid: "https://orcid.org/0000-0003-4995-4473"
+  - family-names: "Vieira"
+    given-names: "Renee"
+  - family-names: "Hou"
+    given-names: "Charlie"
+repository-code: "https://github.com/andrestrocyte/rnnematode-micropublication"
+year: 2026
+license: "MIT"
