@@ -12,7 +12,7 @@ required = [
 missing = [p for p in required if not (root / p).exists()]
 if missing:
     raise SystemExit('Missing required files: ' + ', '.join(missing))
-bad_terms = ['chat' + 'gpt', 'co' + 'dex', 'ai ' + 'generated', 'as an ' + 'ai', 'language ' + 'model', '/Users/deviandr/' + 'ncap' + '_project']
+bad_terms = ['chat' + 'gpt', 'co' + 'dex', 'ai ' + 'generated', 'as an ' + 'ai', 'language ' + 'model', '/' + 'Users' + '/deviandr/' + 'ncap' + '_project']
 pattern = re.compile('|'.join(re.escape(t) for t in bad_terms), re.I)
 hits = []
 for path in root.rglob('*'):
