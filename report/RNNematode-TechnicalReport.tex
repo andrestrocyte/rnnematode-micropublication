@@ -17,7 +17,7 @@
 \maketitle
 
 \section{Project overview}
-The original goal was to implement a sensory-cerebellar NCAP-like experiment in the BrainCAD locomotion stack.  The main result became more specific: adding a biologically inspired module was not enough by itself.  The learning signal determined whether the module became a real correction or another weak policy head.  PPO-only spinal and residual circuits did not reliably learn rapid recovery.  Teacher-guided residual imitation did.  The method is intentionally close to residual imitation / policy distillation; the scientific point is that this structured teacher signal was necessary for the biologically inspired corrective architecture to become useful.
+The original goal was to implement a sensory-cerebellar NCAP-like experiment in the BrainCAD locomotion stack.  The main result became more specific: adding a biologically inspired module was not enough by itself.  The learning signal determined whether the module became a real correction or another weak policy head.  PPO-only spinal and residual circuits did not reliably learn rapid recovery.  Teacher-guided residual imitation did.  The method is intentionally close to residual policy learning and policy distillation \citep{johannink2018residualrl,rusu2015policydistillation,schmitt2018kickstarting}; the scientific point is that this structured teacher signal was necessary for the biologically inspired corrective architecture to become useful.
 
 \section{ReflexBench perturbation protocol}
 ReflexBench perturbs the agent during evaluation with three families of events:
@@ -107,7 +107,7 @@ Table~\ref{tab:humanoid} summarizes the N=20 Humanoid campaign.  Negative fall d
 \end{figure}
 
 \section{Negative result: RL-only corrective subcircuits}
-The failure ladder matters because it rules out a simple architectural explanation.  The useful ingredient was not the name of the module.  SC-NCAP gain gating, PPO-trained residuals, curriculum residuals, BG-like gates, and stability auxiliary variants did not produce consistent causal robustness improvements.  These results suggest that sparse reward was too indirect for learning a small, fast corrective residual.  Conversely, the successful method should not be presented as a new distillation algorithm; it is a biologically organized use of a known supervised residual-learning idea.
+The failure ladder matters because it rules out a simple architectural explanation.  The useful ingredient was not the name of the module.  SC-NCAP gain gating, PPO-trained residuals, curriculum residuals, BG-like gates, and stability auxiliary variants did not produce consistent causal robustness improvements.  These results suggest that sparse reward was too indirect for learning a small, fast corrective residual.  Conversely, the successful method should not be presented as a new distillation algorithm; it is a biologically organized use of known supervised residual-learning and distillation ideas \citep{johannink2018residualrl,rusu2015policydistillation,schmitt2018kickstarting}.
 
 The failed variants also differed mechanistically.  In SC-NCAP, prediction error modulated sensory gain before the spinal interface.  In the RL-only residual, a bounded torque correction was available but had to be discovered from sparse return.  In the stability-auxiliary variants, the residual received extra pressure toward uprightness during perturbation windows, but the correction still did not become consistently useful.  These attempts became useful controls: they show that the successful effect is not a generic consequence of adding more modules.
 
@@ -150,7 +150,7 @@ This is stricter than copying the teacher, because $u_t^{final}$ includes the cl
 \caption{Cross-environment summary.  Humanoid rows use the N=20 default-schedule result; other environments use the saved cross-environment replication summaries.}
 \end{table}
 
-The morphology analysis should be treated cautiously.  Hopper, Walker2d, Ant, and Humanoid are not an evolutionary tree, and four simulated bodies cannot establish a scaling law.  Still, the pattern is useful as a control-demand analysis.  More contact-rich bodies create more transient failure modes; this is exactly where layered corrective control should be useful.  Ant and Humanoid show strong fall reductions.  Hopper is a boundary condition: its underactuated morphology makes conservative corrections able to reduce some falls while hurting return.
+The morphology analysis should be treated cautiously.  Hopper, Walker2d, Ant, and Humanoid are not an evolutionary tree, and four simulated bodies cannot establish a scaling law. The Figure 1D morphology panel uses mean estimates without error bars or confidence regions, so it should be read as a visual summary rather than an inferential regression.  Still, the pattern is useful as a control-demand analysis.  More contact-rich bodies create more transient failure modes; this is exactly where layered corrective control should be useful.  Ant and Humanoid show strong fall reductions.  Hopper is a boundary condition: its underactuated morphology makes conservative corrections able to reduce some falls while hurting return.
 
 \begin{table}[h]
 \centering

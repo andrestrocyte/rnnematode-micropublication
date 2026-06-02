@@ -1,66 +1,83 @@
-# RNNematode micropublication
+# RNNematode micropublication package
 
-This repository contains the public micropublication package for Team RNNematode from the Neuromatch Impact Scholars Program. The project asks a narrow question: when a locomotor controller is perturbed, does a biologically inspired corrective module help by itself, or does it need a structured teacher signal? In our BrainCAD/ReflexBench experiments, PPO-only corrective circuits did not reliably learn fast recovery, while a teacher-guided cerebellar residual did.
+This repository contains the Neuromatch Impact Scholars micropublication package for Team RNNematode. The project asks a narrow question: when a simulated locomotor controller is perturbed, does a biologically inspired corrective module help by itself, or does it need a structured teacher signal? In our BrainCAD/ReflexBench experiments, PPO-only corrective circuits did not reliably learn fast recovery, while a teacher-guided cerebellar residual did.
 
 Public repository: https://github.com/andrestrocyte/rnnematode-micropublication
 
 ## Main claim
 
-Teacher-guided corrective residuals support reflex-like recovery in simulated locomotion. The result is not presented as a new distillation algorithm or a biological proof. The main point is simpler: in this BrainCAD setting, the learning signal mattered more than the anatomical label of the module.
+Teacher-guided corrective residuals support reflex-like recovery in simulated locomotion. The result is not presented as a new distillation algorithm or as biological proof. The main point is simpler: in this BrainCAD setting, the learning signal mattered more than the anatomical label of the module.
 
-## Read first
+## Quick reproducibility check
 
-- `RNNematode-Micropublication.pdf` is the short micropublication.
-- `myst_submission/index.md` is the MyST Markdown source for submission.
-- `report/RNNematode-TechnicalReport.pdf` gives the longer technical report with equations, controls, and extra tables.
-- `Figures/RNNematode-Figures.svg` and `Figures/RNNematode-Supplementary-Figures.svg` are the submitted figure sheets.
+This is the recommended reviewer command. It validates the packaged CSV tables, figure inputs, and video index without retraining policies and without requiring LaTeX:
 
-## Build the package
+```bash
+cd path/to/rnnematode-micropublication
+./commands_session.sh
+```
 
-The generated PDFs are already included. To rebuild them locally:
+Expected success message:
+
+```text
+RNNematode reproducibility check: OK
+```
+
+For a clean Python environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+./commands_session.sh
+```
+
+## Optional PDF rebuild
 
 ```bash
 ./build.sh
 ```
 
-This requires a working LaTeX installation with `latexmk`. The build compiles the existing sources; it does not rerun training.
+`build.sh` first runs the same lightweight artifact check. If `latexmk` is installed, it also recompiles the micropublication and technical-report PDFs. If LaTeX is missing, the checked-in PDFs remain usable.
 
-## Reproduce the lightweight figure checks
+## Read first
 
-```bash
-./commands_session.sh
-```
+- `RNNematode-Micropublication.pdf`: compact micropublication.
+- `myst_submission/index.md`: MyST source for the micropublication.
+- `report/RNNematode-TechnicalReport.pdf`: longer report with equations, controls, and extra tables.
+- `Figures/RNNematode-Figures.svg`: main figure sheet in SVG.
+- `Figures/RNNematode-Supplementary-Figures.svg`: supplementary figure sheet in SVG.
 
-The notebooks in `Codes/` use the saved CSV tables included in this repository. They are intended as brief, readable checks rather than a full training pipeline.
+## Reproducing figures and validation summaries
+
+The notebooks in `Codes/` use saved result artifacts included in this repository. They are short checks, not a full training pipeline:
+
+- `Codes/01_model_equations_and_action_decomposition.ipynb`: minimal cortex/teacher/residual equations.
+- `Codes/02_reproduce_main_humanoid_results.ipynb`: reproduces headline Humanoid AUC summaries from `derived_tables/humanoid20_key_results.csv`.
+- `Codes/03_reflexbench_video_index.ipynb`: summarizes the representative-video index in `video_index/representative_video_index.csv`.
 
 ## Videos
 
-Representative MP4s are stored under `videos/`. The index files list environment, method, perturbation tier, and relative video path. The main comparison to inspect is:
-
-- `baseline_off`: nominal cortex-only baseline.
-- `imitation_off`: same student checkpoint with the residual disabled.
-- `imitation_on`: teacher-guided residual enabled.
-- `consolidated_off`: cortex-only policy after supervised consolidation.
-
-The videos are qualitative evidence that the perturbations and policy differences are visible, not a replacement for the AUC statistics in the paper.
+The lightweight public package includes video indices rather than all MP4 files. The index records environment, method, perturbation tier, and relative video path for representative runs. The videos are qualitative validation artifacts; the main evidence is the paired ON/OFF AUC analysis in the paper.
 
 ## Repository layout
 
-- `myst_submission/`: MyST Markdown source for the micropublication.
-- `report/`: longer technical report.
-- `Figures/`: SVG, PDF, and PNG figure exports.
-- `derived_tables/`: CSV summaries used by the figures and report.
+- `myst_submission/`: MyST Markdown source for submission.
+- `report/`: technical report source and PDF.
+- `Figures/`: SVG/PDF/PNG figure exports.
+- `derived_tables/`: CSV summaries used by figures and reports.
 - `tables/`: LaTeX table fragments.
-- `Codes/`: small documented notebooks.
-- `videos/`: representative MP4s and video indices.
-- `scripts/`: release validation and packaging helpers.
+- `Codes/`: documented notebooks.
+- `video_index/`: representative video index.
+- `scripts/`: lightweight release validation.
+- `RNNematode_micropublication_code.zip`: submission-ready code archive.
 
 ## Authorship and citation
 
 Equal-contributing scholars: Andrés de Vicente, Renee Vieira, and Charlie Hou. Andrés ORCID: https://orcid.org/0000-0003-4995-4473. Raymond Chua is acknowledged as senior mentor.
 
-Author roles are listed in `ISP_RNNematode_CRediT_contributors.csv`. Citation metadata is in `CITATION.cff`.
+Author roles are listed in `ISP_RNNematode_CRediT_contributors.csv`. Citation metadata is in `CITATION.cff` in the public repository.
 
 ## Licenses
 
-Code is released under the MIT License. Text and figures are released under CC BY 4.0; see `LICENSE-CC-BY-4.0.md`.
+Code is released under the MIT License. Text and figures are released under CC BY 4.0 in the public repository.
