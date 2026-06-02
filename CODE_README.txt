@@ -1,23 +1,50 @@
-#!/usr/bin/env bash
-set -euo pipefail
-cd "$(dirname "$0")"
-PYTHON_BIN="${PYTHON_BIN:-}"
-if [ -z "$PYTHON_BIN" ]; then
-  if command -v python3 >/dev/null 2>&1; then PYTHON_BIN=python3;
-  elif command -v python >/dev/null 2>&1; then PYTHON_BIN=python;
-  else echo "ERROR: Python 3 is required but was not found on PATH." >&2; exit 1; fi
-fi
+RNNematode BrainCAD reproducibility code
 
-# Always validate the packaged CSV/SVG artifacts first. This path has no third-party Python dependencies.
-"$PYTHON_BIN" scripts/check_reproducibility.py
-"$PYTHON_BIN" scripts/generate_scientific_plots.py
+Purpose
+-------
+This package checks the saved BrainCAD/ReflexBench result artifacts used in the micropublication figures and technical report. It also regenerates lightweight SVG plots from the packaged CSV tables. It does not rerun policy training.
 
-if command -v latexmk >/dev/null 2>&1; then
-  latexmk -pdf -interaction=nonstopmode RNNematode-Micropublication.tex
-  latexmk -c RNNematode-Micropublication.tex >/dev/null 2>&1 || true
-  cd report
-  latexmk -pdf -interaction=nonstopmode RNNematode-TechnicalReport.tex
-  latexmk -c RNNematode-TechnicalReport.tex >/dev/null 2>&1 || true
-else
-  echo "latexmk not found; skipped PDF rebuild. Existing PDFs remain in the package."
-fi
+Quick run
+---------
+
+   ./commands_session.sh
+
+Expected output includes:
+
+   RNNematode reproducibility check: OK
+   Generated scientific plots:
+
+The quick check uses only the Python standard library. It validates required input artifacts, writes a recomputed headline CSV/JSON summary, and regenerates SVG plots under generated_plots/.
+
+Generated outputs
+-----------------
+- reproducibility_check_outputs/headline_recomputed_from_packaged_tables.csv
+- reproducibility_check_outputs/reproducibility_check_summary.json
+- generated_plots/humanoid_fall_auc_reduction.svg
+- generated_plots/humanoid_return_auc_gain.svg
+- generated_plots/teacher_quality_fall_reduction.svg
+- generated_plots/cross_environment_fall_reduction.svg
+
+Optional notebook execution
+---------------------------
+Install optional dependencies if you want to execute the notebooks:
+
+   python3 -m venv .venv
+   source .venv/bin/activate
+   python -m pip install -r requirements.txt
+   ./commands_session.sh
+
+Included notebooks
+------------------
+- Codes/01_model_equations_and_action_decomposition.ipynb
+- Codes/02_reproduce_main_humanoid_results.ipynb
+- Codes/03_reflexbench_video_index.ipynb
+
+Packaged input data
+-------------------
+- derived_tables/humanoid20_key_results.csv
+- derived_tables/cross_environment_summary_micropublication.csv
+- derived_tables/morphology_vs_benefit.csv
+- derived_tables/teacher_quality_replication_summary.csv
+- video_index/representative_video_index.csv
+- Figures/RNNematode-Figures.svg
