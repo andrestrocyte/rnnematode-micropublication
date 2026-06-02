@@ -1,44 +1,32 @@
-RNNematode micropublication code package
+RNNematode BrainCAD code package
 
 Purpose
 -------
-This code package reproduces the checks used in the micropublication from saved BrainCAD/ReflexBench result artifacts. It does not rerun training.
+This package checks the saved BrainCAD/ReflexBench result artifacts used in the figures and report. It does not rerun training.
 
-How to run
-----------
-1. Open a terminal.
-2. Run the lightweight reviewer check:
+Quick run
+---------
 
-   cd rnnematode-micropublication
    ./commands_session.sh
 
-Expected output includes:
+Expected output:
 
    RNNematode reproducibility check: OK
 
-This validates the packaged result tables and video index. It does not retrain policies and does not require LaTeX or third-party Python packages.
+The quick check uses only the Python standard library. Optional notebook execution uses the packages in requirements.txt.
 
-Optional clean environment:
-
-   python3 -m venv .venv
-   source .venv/bin/activate
-   python -m pip install -r requirements.txt
-   ./commands_session.sh
-
-Optional PDF rebuild:
+Optional full PDF rebuild
+-------------------------
 
    ./build.sh
 
-If latexmk is installed, build.sh recompiles the micropublication and technical report. If LaTeX is missing, the checked-in PDFs remain usable.
+If latexmk is installed, build.sh recompiles the short report and technical report. If LaTeX is missing, the existing PDFs remain usable.
 
 Included notebooks
 ------------------
 - Codes/01_model_equations_and_action_decomposition.ipynb
-  Minimal action-composition example for cortex, teacher, and residual.
 - Codes/02_reproduce_main_humanoid_results.ipynb
-  Replots headline Humanoid fall/return AUC results from saved CSVs.
 - Codes/03_reflexbench_video_index.ipynb
-  Lists representative saved videos from the packaged index.
 
 Packaged data
 -------------

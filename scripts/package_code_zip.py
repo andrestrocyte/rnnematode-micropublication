@@ -3,8 +3,8 @@ from pathlib import Path
 import zipfile
 root = Path(__file__).resolve().parents[1]
 zip_path = root / 'RNNematode_micropublication_code.zip'
-include_dirs = ['Codes', 'derived_tables', 'tables', 'Figures', 'myst_submission', 'scripts']
-include_files = ['README.md', 'CODE_README.txt', 'commands_session.sh', 'build.sh', 'references.bib', 'VALIDATION.md', 'SUBMISSION_CHECKLIST.md', 'RNNematode-Contributions.csv', 'ISP_RNNematode_CRediT_contributors.csv', 'CITATION.cff', 'LICENSE', 'LICENSE-CC-BY-4.0.md']
+include_dirs = ['Codes', 'derived_tables', 'tables', 'Figures', 'myst_submission', 'video_index', 'scripts']
+include_files = ['README.md', 'CODE_README.txt', 'commands_session.sh', 'build.sh', 'references.bib', 'VALIDATION.md', 'requirements.txt', 'LICENSE']
 if zip_path.exists():
     zip_path.unlink()
 with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
@@ -12,7 +12,7 @@ with zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
         base = root / d
         if base.exists():
             for path in base.rglob('*'):
-                if path.is_file():
+                if path.is_file() and '__pycache__' not in path.parts and '.ipynb_checkpoints' not in path.parts:
                     zf.write(path, path.relative_to(root))
     for f in include_files:
         path = root / f
