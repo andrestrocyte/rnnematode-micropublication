@@ -10,6 +10,7 @@ fi
 
 # Lightweight reviewer path: validate packaged result artifacts.
 "$PYTHON_BIN" scripts/check_reproducibility.py
+"$PYTHON_BIN" scripts/generate_scientific_plots.py
 
 # Optional: execute notebooks if Jupyter is installed.
 if command -v jupyter >/dev/null 2>&1; then

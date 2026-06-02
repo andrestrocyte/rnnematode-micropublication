@@ -10,6 +10,7 @@ fi
 
 # Always validate the packaged CSV/SVG artifacts first. This path has no third-party Python dependencies.
 "$PYTHON_BIN" scripts/check_reproducibility.py
+"$PYTHON_BIN" scripts/generate_scientific_plots.py
 
 if command -v latexmk >/dev/null 2>&1; then
   latexmk -pdf -interaction=nonstopmode RNNematode-Micropublication.tex

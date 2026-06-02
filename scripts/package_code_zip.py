@@ -3,7 +3,7 @@ from pathlib import Path
 import zipfile
 root = Path(__file__).resolve().parents[1]
 zip_path = root / 'RNNematode_micropublication_code.zip'
-include_dirs = ['Codes', 'derived_tables', 'tables', 'Figures', 'myst_submission', 'video_index', 'scripts']
+include_dirs = ['Codes', 'derived_tables', 'tables', 'Figures', 'myst_submission', 'video_index', 'scripts', 'generated_plots']
 include_files = ['README.md', 'CODE_README.txt', 'commands_session.sh', 'build.sh', 'references.bib', 'VALIDATION.md', 'requirements.txt', 'LICENSE']
 if zip_path.exists():
     zip_path.unlink()
