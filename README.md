@@ -2,6 +2,8 @@
 
 This repository contains the public reproducibility package for a Neuromatch Impact Scholars micropublication by Team RNNematode. The project asks a narrow motor-control question: when a simulated animal is pushed, slipped, or sensor-corrupted, does a biologically inspired corrective circuit help by architecture alone, or does it need a structured teaching signal?
 
+The full BrainCAD codebase used for the original locomotion experiments is available at [andrestrocyte/braincad](https://github.com/andrestrocyte/braincad).
+
 The main result is that PPO-only corrective modules did not reliably learn fast recovery in this BrainCAD/ReflexBench setting. A teacher-guided cerebellar residual did. The result is intentionally framed as a learning-signal result, not as a claim that we discovered a new biological mechanism.
 
 ## Scientific claim
